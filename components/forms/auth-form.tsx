@@ -75,15 +75,6 @@ export function AuthForm({ mode }: { mode: AuthFormMode }) {
           </Button>
         </form>
 
-        {mode === "sign-in" ? (
-          <div className="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4 text-sm">
-            <p className="font-medium text-foreground">Development note</p>
-            <p className="mt-2 text-muted-foreground">
-              Seeded demo logins should only be used in local development. Do not expose demo credentials in production.
-            </p>
-          </div>
-        ) : null}
-
         <p className="mt-4 text-sm text-muted-foreground">
           {mode === "sign-in" ? "Need an account?" : "Already have an account?"}{" "}
           <Link className="font-medium text-cyan-600" href={mode === "sign-in" ? "/sign-up" : "/sign-in"}>
