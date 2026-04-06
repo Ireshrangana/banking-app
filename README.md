@@ -12,8 +12,8 @@ Demo login can be enabled for local development or controlled staging.
 
 Live demo credentials for the current Vercel deployment:
 
-- Admin: `demo.admin@bankingapp.test` / `DemoBanking2026!`
-- User: `demo.user@bankingapp.test` / `DemoBanking2026!`
+- Admin: `demo.admin@bankingapp.test` / `DemoBanking2026`
+- User: `demo.user@bankingapp.test` / `DemoBanking2026`
 
 - Set `ENABLE_DEMO_LOGIN=true`
 - Configure `ADMIN_*` and `USER_*` values in your environment
@@ -111,7 +111,7 @@ This repository can run on Vercel, but production deployment should use real pro
 
 ## Environment Configuration
 
-This repository includes [.env.example](/Users/iresh/Documents/Banking app/.env.example) with placeholder values only.
+This repository includes [`.env.example`](./.env.example) with placeholder values only.
 
 Never commit:
 
@@ -145,7 +145,7 @@ Recommended production behavior:
 - Do not commit real Appwrite API keys, Plaid secrets, Dwolla secrets, callback secrets, or live banking account identifiers.
 - Rotate any credential immediately if it is ever pasted into source control.
 - Use sandbox credentials during development and switch to production credentials only in your hosting platform.
-- Review [SECURITY.md](/Users/iresh/Documents/Banking app/SECURITY.md) before publishing or deploying.
+- Review [`SECURITY.md`](./SECURITY.md) before publishing or deploying.
 
 ## Appwrite Setup
 
@@ -164,14 +164,14 @@ Set the corresponding `APPWRITE_*` values in `.env.local` and in your hosting pr
 2. Start with sandbox mode.
 3. Add your `PLAID_CLIENT_ID` and `PLAID_SECRET` to `.env.local`.
 4. Configure redirect URLs if your flow requires them.
-5. Use the backend routes in [app/api/plaid/create-link-token/route.ts](/Users/iresh/Documents/Banking app/app/api/plaid/create-link-token/route.ts) and [app/api/plaid/exchange-public-token/route.ts](/Users/iresh/Documents/Banking app/app/api/plaid/exchange-public-token/route.ts).
+5. Use the backend routes in [`app/api/plaid/create-link-token/route.ts`](./app/api/plaid/create-link-token/route.ts) and [`app/api/plaid/exchange-public-token/route.ts`](./app/api/plaid/exchange-public-token/route.ts).
 
 ## Dwolla Setup
 
 1. Create a Dwolla developer account.
 2. Use sandbox credentials first.
 3. Add `DWOLLA_KEY`, `DWOLLA_SECRET`, and `DWOLLA_FUNDING_SOURCE_URL` to `.env.local`.
-4. Use the transfer action in [actions/banking.ts](/Users/iresh/Documents/Banking app/actions/banking.ts) and the route in [app/api/dwolla/transfer/route.ts](/Users/iresh/Documents/Banking app/app/api/dwolla/transfer/route.ts).
+4. Use the transfer action in [`actions/banking.ts`](./actions/banking.ts) and the route in [`app/api/dwolla/transfer/route.ts`](./app/api/dwolla/transfer/route.ts).
 
 ## Deploying To Live Hosting
 
