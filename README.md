@@ -10,6 +10,11 @@ Banking App is a production-style fintech dashboard built with Next.js 14, TypeS
 
 Demo login can be enabled for local development or controlled staging.
 
+Live demo credentials for the current Vercel deployment:
+
+- Admin: `demo.admin@bankingapp.test` / `DemoBanking2026!`
+- User: `demo.user@bankingapp.test` / `DemoBanking2026!`
+
 - Set `ENABLE_DEMO_LOGIN=true`
 - Configure `ADMIN_*` and `USER_*` values in your environment
 
