@@ -1,0 +1,12 @@
+.next
+.next-dev-broken-*
+node_modules
+.env
+.env.local
+.env.*
+!.env.example
+dist
+coverage
+.DS_Store
+*.log
+*.tsbuildinfo
