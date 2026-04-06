@@ -34,7 +34,7 @@ export async function createPlaidLinkToken(userId: string) {
 
   const response = await client.linkTokenCreate({
     user: { client_user_id: userId },
-    client_name: "Northstar Finance",
+    client_name: "Banking App",
     products: env.plaid.products as Products[],
     country_codes: env.plaid.countries as CountryCode[],
     language: "en"

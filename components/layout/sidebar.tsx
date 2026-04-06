@@ -22,8 +22,8 @@ export function Sidebar({ user }: { user: UserProfile }) {
           <Wallet className="h-6 w-6" />
         </div>
         <div>
-          <p className="text-sm text-slate-400">Northstar</p>
-          <h1 className="font-semibold">Banking Suite</h1>
+          <p className="text-sm text-slate-400">Modern Finance</p>
+          <h1 className="font-semibold">Banking App</h1>
         </div>
       </div>
 

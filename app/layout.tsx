@@ -6,7 +6,7 @@ import { AppProviders } from "@/components/providers/app-providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Northstar Banking Suite",
+  title: "Banking App",
   description: "Production-ready fintech dashboard with Appwrite, Plaid, and Dwolla integrations."
 };
 
