@@ -2,6 +2,10 @@
 
 Banking App is a production-style fintech dashboard built with Next.js 14, TypeScript, Tailwind CSS, Appwrite, Plaid, and Dwolla-ready service layers. It is designed as a public starter repository for modern online banking dashboards, account aggregation flows, transfers, and analytics.
 
+## Live Demo
+
+- Vercel App: `https://banking-app-kappa-one.vercel.app`
+
 ## Overview
 
 - Modern banking dashboard with responsive layout
