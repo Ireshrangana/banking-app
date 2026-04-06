@@ -1,41 +1,42 @@
+const clean = (value: string | undefined) => value?.trim() || "";
 const parseList = (value: string | undefined, fallback: string[]) =>
-  value ? value.split(",").map((entry) => entry.trim()) : fallback;
+  clean(value) ? clean(value).split(",").map((entry) => entry.trim()) : fallback;
 
-const demoLoginEnabled = process.env.ENABLE_DEMO_LOGIN === "true";
+const demoLoginEnabled = clean(process.env.ENABLE_DEMO_LOGIN) === "true";
 
 export const env = {
-  appUrl: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  appUrl: clean(process.env.NEXT_PUBLIC_APP_URL) || "http://localhost:3000",
   auth: {
-    adminEmail: process.env.ADMIN_EMAIL || "",
-    adminPassword: process.env.ADMIN_PASSWORD || "",
-    adminName: process.env.ADMIN_NAME || "Platform Admin",
-    adminEmails: parseList(process.env.ADMIN_EMAILS, process.env.ADMIN_EMAIL ? [process.env.ADMIN_EMAIL] : []),
-    userEmail: process.env.USER_EMAIL || "",
-    userPassword: process.env.USER_PASSWORD || "",
-    userName: process.env.USER_NAME || "Demo User"
+    adminEmail: clean(process.env.ADMIN_EMAIL),
+    adminPassword: clean(process.env.ADMIN_PASSWORD),
+    adminName: clean(process.env.ADMIN_NAME) || "Platform Admin",
+    adminEmails: parseList(process.env.ADMIN_EMAILS, clean(process.env.ADMIN_EMAIL) ? [clean(process.env.ADMIN_EMAIL)] : []),
+    userEmail: clean(process.env.USER_EMAIL),
+    userPassword: clean(process.env.USER_PASSWORD),
+    userName: clean(process.env.USER_NAME) || "Demo User"
   },
   appwrite: {
-    endpoint: process.env.APPWRITE_ENDPOINT || "",
-    projectId: process.env.APPWRITE_PROJECT_ID || "",
-    databaseId: process.env.APPWRITE_DATABASE_ID || "",
-    usersCollectionId: process.env.APPWRITE_USERS_COLLECTION_ID || "",
-    banksCollectionId: process.env.APPWRITE_BANKS_COLLECTION_ID || "",
-    transactionsCollectionId: process.env.APPWRITE_TRANSACTIONS_COLLECTION_ID || "",
-    storageBucketId: process.env.APPWRITE_STORAGE_BUCKET_ID || "",
-    apiKey: process.env.APPWRITE_API_KEY || ""
+    endpoint: clean(process.env.APPWRITE_ENDPOINT),
+    projectId: clean(process.env.APPWRITE_PROJECT_ID),
+    databaseId: clean(process.env.APPWRITE_DATABASE_ID),
+    usersCollectionId: clean(process.env.APPWRITE_USERS_COLLECTION_ID),
+    banksCollectionId: clean(process.env.APPWRITE_BANKS_COLLECTION_ID),
+    transactionsCollectionId: clean(process.env.APPWRITE_TRANSACTIONS_COLLECTION_ID),
+    storageBucketId: clean(process.env.APPWRITE_STORAGE_BUCKET_ID),
+    apiKey: clean(process.env.APPWRITE_API_KEY)
   },
   plaid: {
-    clientId: process.env.PLAID_CLIENT_ID || "",
-    secret: process.env.PLAID_SECRET || "",
-    env: process.env.PLAID_ENV || "sandbox",
+    clientId: clean(process.env.PLAID_CLIENT_ID),
+    secret: clean(process.env.PLAID_SECRET),
+    env: clean(process.env.PLAID_ENV) || "sandbox",
     products: parseList(process.env.PLAID_PRODUCTS, ["auth", "transactions"]),
     countries: parseList(process.env.PLAID_COUNTRY_CODES, ["US"])
   },
   dwolla: {
-    key: process.env.DWOLLA_KEY || "",
-    secret: process.env.DWOLLA_SECRET || "",
-    env: process.env.DWOLLA_ENV || "sandbox",
-    fundingSourceUrl: process.env.DWOLLA_FUNDING_SOURCE_URL || ""
+    key: clean(process.env.DWOLLA_KEY),
+    secret: clean(process.env.DWOLLA_SECRET),
+    env: clean(process.env.DWOLLA_ENV) || "sandbox",
+    fundingSourceUrl: clean(process.env.DWOLLA_FUNDING_SOURCE_URL)
   }
 };
 
