@@ -77,9 +77,10 @@ export function AuthForm({ mode }: { mode: AuthFormMode }) {
 
         {mode === "sign-in" ? (
           <div className="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4 text-sm">
-            <p className="font-medium text-foreground">Seeded demo accounts</p>
-            <p className="mt-2 text-muted-foreground">Admin: `admin@example.com` / `password123`</p>
-            <p className="text-muted-foreground">User: `user@example.com` / `password123`</p>
+            <p className="font-medium text-foreground">Development note</p>
+            <p className="mt-2 text-muted-foreground">
+              Seeded demo logins should only be used in local development. Do not expose demo credentials in production.
+            </p>
           </div>
         ) : null}
 

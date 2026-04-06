@@ -1,15 +1,17 @@
 const parseList = (value: string | undefined, fallback: string[]) =>
   value ? value.split(",").map((entry) => entry.trim()) : fallback;
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export const env = {
   appUrl: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   auth: {
-    adminEmail: process.env.ADMIN_EMAIL || "admin@example.com",
-    adminPassword: process.env.ADMIN_PASSWORD || "password123",
-    adminName: process.env.ADMIN_NAME || "Admin User",
-    adminEmails: parseList(process.env.ADMIN_EMAILS, [process.env.ADMIN_EMAIL || "admin@example.com"]),
-    userEmail: process.env.USER_EMAIL || "user@example.com",
-    userPassword: process.env.USER_PASSWORD || "password123",
+    adminEmail: process.env.ADMIN_EMAIL || "",
+    adminPassword: process.env.ADMIN_PASSWORD || "",
+    adminName: process.env.ADMIN_NAME || "Platform Admin",
+    adminEmails: parseList(process.env.ADMIN_EMAILS, process.env.ADMIN_EMAIL ? [process.env.ADMIN_EMAIL] : []),
+    userEmail: process.env.USER_EMAIL || "",
+    userPassword: process.env.USER_PASSWORD || "",
     userName: process.env.USER_NAME || "Demo User"
   },
   appwrite: {
@@ -49,3 +51,11 @@ export const hasAppwriteEnv = Boolean(
 export const hasPlaidEnv = Boolean(env.plaid.clientId && env.plaid.secret);
 export const hasDwollaEnv = Boolean(env.dwolla.key && env.dwolla.secret);
 export const hasAppwriteAuthEnv = Boolean(env.appwrite.endpoint && env.appwrite.projectId);
+export const allowSeededAuth =
+  !isProduction &&
+  Boolean(
+    env.auth.adminEmail &&
+      env.auth.adminPassword &&
+      env.auth.userEmail &&
+      env.auth.userPassword
+  );

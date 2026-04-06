@@ -4,7 +4,7 @@ import { ID } from "appwrite";
 import { z } from "zod";
 
 import { buildUserProfile, getPublicAppwriteAccount } from "@/lib/appwrite";
-import { env, hasAppwriteAuthEnv } from "@/lib/env";
+import { allowSeededAuth, env, hasAppwriteAuthEnv } from "@/lib/env";
 import { createSession, clearSession } from "@/lib/session";
 import type { ActionResponse, UserProfile } from "@/types";
 
@@ -42,30 +42,32 @@ export async function signInAction(input: {
 
   const normalizedEmail = input.email.toLowerCase().trim();
 
-  if (
-    normalizedEmail === env.auth.adminEmail.toLowerCase() &&
-    input.password === env.auth.adminPassword
-  ) {
-    const adminUser = getLocalAdminUser(normalizedEmail);
-    await createSession(adminUser);
-    return {
-      success: true,
-      message: "Signed in as admin.",
-      data: adminUser
-    };
-  }
+  if (allowSeededAuth) {
+    if (
+      normalizedEmail === env.auth.adminEmail.toLowerCase() &&
+      input.password === env.auth.adminPassword
+    ) {
+      const adminUser = getLocalAdminUser(normalizedEmail);
+      await createSession(adminUser);
+      return {
+        success: true,
+        message: "Signed in as admin.",
+        data: adminUser
+      };
+    }
 
-  if (
-    normalizedEmail === env.auth.userEmail.toLowerCase() &&
-    input.password === env.auth.userPassword
-  ) {
-    const user = getLocalUser(normalizedEmail);
-    await createSession(user);
-    return {
-      success: true,
-      message: "Signed in successfully.",
-      data: user
-    };
+    if (
+      normalizedEmail === env.auth.userEmail.toLowerCase() &&
+      input.password === env.auth.userPassword
+    ) {
+      const user = getLocalUser(normalizedEmail);
+      await createSession(user);
+      return {
+        success: true,
+        message: "Signed in successfully.",
+        data: user
+      };
+    }
   }
 
   if (hasAppwriteAuthEnv) {
@@ -96,14 +98,15 @@ export async function signInAction(input: {
       return {
         success: false,
         message:
-          "Invalid email or password. Use the seeded demo credentials or configure a matching Appwrite account."
+          "Invalid email or password. Verify your Appwrite account or your seeded local credentials."
       };
     }
   }
 
   return {
     success: false,
-    message: "No Appwrite auth is configured. Use the seeded demo credentials or sign up locally."
+    message:
+      "Authentication is not configured for this environment. Add Appwrite auth settings or enable local seeded credentials only for development."
   };
 }
 
@@ -164,19 +167,17 @@ export async function signUpAction(input: {
     }
   }
 
-  const user = buildUserProfile({
-    id: "user-local",
-    email: normalizedEmail,
-    firstName: input.firstName,
-    lastName: input.lastName
-  });
-
-  await createSession(user);
+  if (!hasAppwriteAuthEnv) {
+    return {
+      success: false,
+      message:
+        "Local signup is disabled without Appwrite auth. Configure Appwrite to allow account creation in deployed environments."
+    };
+  }
 
   return {
-    success: true,
-    message: "Local account created successfully.",
-    data: user
+    success: false,
+    message: "Unable to create account in the current environment."
   };
 }
 

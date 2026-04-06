@@ -75,6 +75,14 @@ npm run dev
 
 6. Open `http://localhost:3000`.
 
+## Vercel Readiness
+
+This repository can run on Vercel, but production deployment should use real provider configuration and should not rely on local seeded auth.
+
+- Seeded local demo logins are for development only.
+- Production should use Appwrite-backed authentication.
+- All secrets must be configured in Vercel environment variables.
+
 ## Environment Configuration
 
 This repository includes [.env.example](/Users/iresh/Documents/Banking app/.env.example) with placeholder values only.
@@ -96,6 +104,12 @@ Required variable groups:
 - `APPWRITE_*`
 - `PLAID_*`
 - `DWOLLA_*`
+
+Recommended production behavior:
+
+- set real `ADMIN_*` and `USER_*` values only if you explicitly want temporary seeded logins outside production
+- configure Appwrite auth for production sign-in and sign-up
+- never rely on placeholder values from `.env.example`
 
 ## Security Guidance
 
@@ -139,19 +153,62 @@ This project is ready to deploy to Vercel.
 
 1. Push the repository to GitHub.
 2. Import the repository into Vercel.
-3. Add all required environment variables in the Vercel project settings.
-4. Set production callback URLs for Appwrite, Plaid, and Dwolla.
-5. Deploy.
+3. In Vercel, set the framework to Next.js if it is not auto-detected.
+4. Add all required environment variables in the Vercel project settings.
+5. Set `NEXT_PUBLIC_APP_URL` to your final production domain.
+6. Set production callback URLs for Appwrite, Plaid, and Dwolla.
+7. Deploy.
 
 ### Production Checklist
 
-- Replace demo credentials with real secure values in hosting secrets
+- Replace any temporary seeded credentials with real secure values in hosting secrets
 - Set `NEXT_PUBLIC_APP_URL` to your production domain
+- Enable Appwrite email/password auth and confirm production platform domains
 - Verify Appwrite platform domains and session settings
 - Verify Plaid allowed redirect URIs and webhook configuration
 - Verify Dwolla redirect URLs, webhook URLs, and funding source setup
 - Review server actions and API routes for authorization rules
 - Test sign-in, bank linking, transfers, and analytics in production
+
+### Vercel Environment Variables
+
+Add these in the Vercel dashboard:
+
+- `NEXT_PUBLIC_APP_URL`
+- `APPWRITE_ENDPOINT`
+- `APPWRITE_PROJECT_ID`
+- `APPWRITE_DATABASE_ID`
+- `APPWRITE_USERS_COLLECTION_ID`
+- `APPWRITE_BANKS_COLLECTION_ID`
+- `APPWRITE_TRANSACTIONS_COLLECTION_ID`
+- `APPWRITE_STORAGE_BUCKET_ID`
+- `APPWRITE_API_KEY`
+- `PLAID_CLIENT_ID`
+- `PLAID_SECRET`
+- `PLAID_ENV`
+- `PLAID_PRODUCTS`
+- `PLAID_COUNTRY_CODES`
+- `DWOLLA_KEY`
+- `DWOLLA_SECRET`
+- `DWOLLA_ENV`
+- `DWOLLA_FUNDING_SOURCE_URL`
+
+Optional for local or controlled staging only:
+
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+- `ADMIN_NAME`
+- `ADMIN_EMAILS`
+- `USER_EMAIL`
+- `USER_PASSWORD`
+- `USER_NAME`
+
+### Recommended Hosting Notes
+
+- Use Vercel preview deployments for integration testing.
+- Use provider sandbox environments before switching to live banking data.
+- Add provider webhooks only after your production domain is stable.
+- Rotate secrets any time a team member changes or a credential is exposed.
 
 ## Public Repository Safety Checklist
 
