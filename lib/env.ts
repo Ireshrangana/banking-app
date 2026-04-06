@@ -2,6 +2,7 @@ const parseList = (value: string | undefined, fallback: string[]) =>
   value ? value.split(",").map((entry) => entry.trim()) : fallback;
 
 const isProduction = process.env.NODE_ENV === "production";
+const demoLoginEnabled = process.env.ENABLE_DEMO_LOGIN === "true";
 
 export const env = {
   appUrl: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
@@ -52,7 +53,7 @@ export const hasPlaidEnv = Boolean(env.plaid.clientId && env.plaid.secret);
 export const hasDwollaEnv = Boolean(env.dwolla.key && env.dwolla.secret);
 export const hasAppwriteAuthEnv = Boolean(env.appwrite.endpoint && env.appwrite.projectId);
 export const allowSeededAuth =
-  !isProduction &&
+  (demoLoginEnabled || !isProduction) &&
   Boolean(
     env.auth.adminEmail &&
       env.auth.adminPassword &&

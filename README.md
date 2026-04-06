@@ -6,6 +6,23 @@ Banking App is a production-style fintech dashboard built with Next.js 14, TypeS
 
 - Vercel App: `https://banking-app-kappa-one.vercel.app`
 
+## Demo Login
+
+Demo login can be enabled for local development or controlled staging.
+
+- Set `ENABLE_DEMO_LOGIN=true`
+- Configure `ADMIN_*` and `USER_*` values in your environment
+
+Example demo credentials:
+
+- Admin: `admin@example.com` / `strong-demo-password`
+- User: `user@example.com` / `strong-demo-password`
+
+Important:
+
+- Do not enable demo login on a public production app unless you intentionally want public test access.
+- If you enable it on Vercel, use non-sensitive demo-only accounts and passwords.
+
 ## Overview
 
 - Modern banking dashboard with responsive layout
@@ -103,6 +120,7 @@ Never commit:
 Required variable groups:
 
 - `NEXT_PUBLIC_APP_URL`
+- `ENABLE_DEMO_LOGIN`
 - `ADMIN_*`
 - `USER_*`
 - `APPWRITE_*`
@@ -112,6 +130,7 @@ Required variable groups:
 Recommended production behavior:
 
 - set real `ADMIN_*` and `USER_*` values only if you explicitly want temporary seeded logins outside production
+- keep `ENABLE_DEMO_LOGIN=false` for normal production use
 - configure Appwrite auth for production sign-in and sign-up
 - never rely on placeholder values from `.env.example`
 
@@ -199,6 +218,7 @@ Add these in the Vercel dashboard:
 
 Optional for local or controlled staging only:
 
+- `ENABLE_DEMO_LOGIN`
 - `ADMIN_EMAIL`
 - `ADMIN_PASSWORD`
 - `ADMIN_NAME`
