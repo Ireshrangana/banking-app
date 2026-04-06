@@ -1,7 +1,6 @@
 const parseList = (value: string | undefined, fallback: string[]) =>
   value ? value.split(",").map((entry) => entry.trim()) : fallback;
 
-const isProduction = process.env.NODE_ENV === "production";
 const demoLoginEnabled = process.env.ENABLE_DEMO_LOGIN === "true";
 
 export const env = {
@@ -53,7 +52,7 @@ export const hasPlaidEnv = Boolean(env.plaid.clientId && env.plaid.secret);
 export const hasDwollaEnv = Boolean(env.dwolla.key && env.dwolla.secret);
 export const hasAppwriteAuthEnv = Boolean(env.appwrite.endpoint && env.appwrite.projectId);
 export const allowSeededAuth =
-  (demoLoginEnabled || !isProduction) &&
+  demoLoginEnabled &&
   Boolean(
     env.auth.adminEmail &&
       env.auth.adminPassword &&
